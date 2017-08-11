@@ -279,13 +279,23 @@ void caffe_gpu_##name<double>(const int n, const double* x, double* y) { \
 
 #endif  // !CPU_ONLY
 
+#define FPGA
 
+#ifdef FPGA
 
 template <typename Dtype>
 void caffe_fpga_add(const int N, const Dtype* a, const Dtype* b, Dtype* y);
 
+template <typename Dtype>
+void caffe_fpga_sub(const int N, const Dtype* a, const Dtype* b, Dtype* y);
 
+//template <typename Dtype>
+//void caffe_mul(const int N, const Dtype* a, const Dtype* b, Dtype* y);
 
+//template <typename Dtype>
+//void caffe_div(const int N, const Dtype* a, const Dtype* b, Dtype* y);
+
+#endif
 
 
 
