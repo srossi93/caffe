@@ -239,6 +239,17 @@ TYPED_TEST(CPUMathFunctionsTest, FPGATestMul) {
     EXPECT_EQ(bottom_data[i] * bottom_data[i], top_data[i]);
   }
 }
+
+
+TYPED_TEST(CPUMathFunctionsTest, FPGATestDiv) {
+  const int n = this->blob_bottom_->count();
+  const TypeParam* bottom_data = this->blob_bottom_->cpu_data();
+  TypeParam* top_data = this->blob_top_->mutable_cpu_data();
+  caffe_fpga_div(n, bottom_data, bottom_data, top_data);
+  for (int i = 0; i < n; ++i) {
+    EXPECT_LT(std::fabs(1 - top_data[i]), 1e-2);
+  }
+}
 #endif
 
 }  // namespace caffe
