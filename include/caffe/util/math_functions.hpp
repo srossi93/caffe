@@ -279,6 +279,16 @@ void caffe_gpu_##name<double>(const int n, const double* x, double* y) { \
 
 #endif  // !CPU_ONLY
 
+
+
+template <typename Dtype>
+void caffe_fpga_add(const int N, const Dtype* a, const Dtype* b, Dtype* y);
+
+
+
+
+
+
 }  // namespace caffe
 
 #endif  // CAFFE_UTIL_MATH_FUNCTIONS_H_

@@ -199,5 +199,29 @@ TYPED_TEST(GPUMathFunctionsTest, TestCopy) {
 
 #endif
 
+#define FPGA
+#ifdef FPGA
+
+//template <typename Dtype>
+//class FPGAMathFunctionsTest
+//  : public MathFunctionsTest<CPUDevice<Dtype> > {
+//};
+
+
+TYPED_TEST(CPUMathFunctionsTest, TestAdd) {
+  const int n = this->blob_bottom_->count();
+  const TypeParam* bottom_data = this->blob_bottom_->cpu_data();
+  TypeParam* top_data = this->blob_top_->mutable_cpu_data();
+
+  caffe_fpga_add(n, bottom_data, bottom_data, top_data);
+  
+  for (int i = 0; i < n; ++i) {
+    EXPECT_EQ(bottom_data[i] + bottom_data[i], top_data[i]);
+  }
+}
+
+
+
+#endif
 
 }  // namespace caffe
